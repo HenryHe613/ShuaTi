@@ -12,3 +12,8 @@ cd ShaTi
 python -m pip install -m requirements.txt
 ```
 
+## 特点
+
+ - 高亮显示错误
+ - 高亮显示多选题
+ - 标记错误次数（后台CSV查看）
