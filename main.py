@@ -48,6 +48,10 @@ def main():
     un_cnt=len(questions[questions["wrong_count"] == 0])
     mode=input(f"目前已经刷了{747-un_cnt}道题\nAC:{ac_cnt}\nWA:{wa_cnt}\n输入1开始顺序刷题,输入2随机刷题")
 
+    print("Do you want to clear terminal before each questions? (yes/no) ")
+    ifclear_str=input().upper()
+    ifclear=True if ifclear_str=="Y" or ifclear=="YES" else False
+
     if(mode=='1'):
         start_id = int(input("Enter the starting question ID: "))
         questions_filtered = questions[questions['id'] >= start_id].sort_values(by='id')
@@ -62,7 +66,9 @@ def main():
             questions.loc[questions['id'] == row['id'], 'wrong_count'] += 1
         else:                       #Accepted!
             questions.loc[questions['id'] == row['id'], 'wrong_count'] = -1
-        questions.to_csv(filename, encoding="UTF-8", index=False)
+        questions.to_csv(filename, encoding="UTF-8-sig", index=False)
+        if(ifclear):
+            clear_screen()
 
     print("\nResults:")
     for _, row in questions_filtered.iterrows():
