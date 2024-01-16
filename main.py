@@ -8,7 +8,7 @@ def color_text(text, color_code):
 
 def ask_question(row):
     question_type = color_text("Multiple Choice", 31) if len(row['rightanswer']) > 1 else "Single Choice"
-    print(f"\nQuestion {row['id']} ({question_type}): {row['descriptions']}")  # 蓝色
+    print(f"\nQuestion {row['id']} ({question_type}): {row['descriptions']}")
     print(f"A: {row['A']}")
     print(f"B: {row['B']}")
     print(f"C: {row['C']}")
