@@ -1,4 +1,12 @@
+import os
+import platform
 import pandas as pd
+
+def clear_screen():
+    if platform.system() == "Windows":
+        os.system('cls')
+    else:
+        os.system('clear')
 
 def load_questions(filename):
     return pd.read_csv(filename)
