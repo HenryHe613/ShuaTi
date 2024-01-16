@@ -8,7 +8,7 @@ def color_text(text:str, color_code:int):
 
 def ask_question(row):
     question_type = color_text("Multiple Choice", 34) if len(row['rightanswer']) > 1 else color_text("Single Choice",33)
-    print(f"\nQuestion {row['id']} ({question_type}): {row['descriptions']}")  # 蓝色
+    print(f"\nQuestion {row['id']} ({question_type}): {row['descriptions']}")
     print(f"A: {row['A']}")
     print(f"B: {row['B']}")
     if isinstance(row['C'],str):
@@ -16,7 +16,7 @@ def ask_question(row):
     if isinstance(row['D'],str):
         print(f"D: {row['D']}")
     if row["wrong_count"]>0:
-        print(color_text(f"本题你已经做错了:{row['wrong_count']}次",31))
+        print(color_text(f"You have already done this question wrong: {row['wrong_count']}次",31))
     answer:str
     if len(row['rightanswer']) > 1:
         answer = input("Enter your answer (e.g. AB/AC/BCD/ABCD): ").strip().upper()
@@ -36,9 +36,16 @@ def main():
     ac_cnt=len(questions[questions["wrong_count"] < 0])
     wa_cnt=len(questions[questions["wrong_count"] > 0])
     un_cnt=len(questions[questions["wrong_count"] == 0])
-    input(f"目前已经刷了{747-un_cnt}道题\nAC:{ac_cnt}\nWA:{wa_cnt}\n按回车开始继续刷题")
+    mode=input(f"目前已经刷了{747-un_cnt}道题\nAC:{ac_cnt}\nWA:{wa_cnt}\n输入1开始顺序刷题,输入2随机刷题")
 
-    questions_filtered = questions[questions["wrong_count"]>=0].sample(frac=1)
+    if(mode=='1'):
+        start_id = int(input("Enter the starting question ID: "))
+        questions_filtered = questions[questions['id'] >= start_id].sort_values(by='id')
+    elif(mode=='2'):
+        questions_filtered = questions[questions["wrong_count"]>=0].sample(frac=1)
+    else:
+        input("Invalid input. PRESS ENTER to exit. ")
+        return
 
     for index, row in questions_filtered.iterrows():
         if not ask_question(row):   #Wrong Answer!
