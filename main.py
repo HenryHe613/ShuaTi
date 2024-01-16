@@ -11,17 +11,19 @@ def ask_question(row):
     print(f"\nQuestion {row['id']} ({question_type}): {row['descriptions']}")
     print(f"A: {row['A']}")
     print(f"B: {row['B']}")
-    if isinstance(row['C'],str):
+    CDexist = isinstance(row['C'],str) and isinstance(row['D'],str)
+    if CDexist:
         print(f"C: {row['C']}")
-    if isinstance(row['D'],str):
         print(f"D: {row['D']}")
     if row["wrong_count"]>0:
         print(color_text(f"You have already done this question wrong: {row['wrong_count']}次",31))
     answer:str
     if len(row['rightanswer']) > 1:
         answer = input("Enter your answer (e.g. AB/AC/BCD/ABCD): ").strip().upper()
-    else:
+    elif(CDexist):
         answer = input("Enter your answer (e.g. A/B/C/D): ").strip().upper()
+    else:
+        answer = input("Enter your answer (e.g. A/B): ").strip().upper()
     is_correct = answer == row['rightanswer']
     if not is_correct:
         input(color_text(f"Wrong answer. The correct answer is: {row['rightanswer']}", 31))  # 红色
