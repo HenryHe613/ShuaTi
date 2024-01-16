@@ -8,7 +8,7 @@
 
 ```bash
 git clone git@github.com:HenryHe613/ShuaTi.git
-cd ShaTi
+cd ShuaTi
 python -m pip install -m requirements.txt
 ```
 
